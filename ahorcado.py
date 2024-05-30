@@ -12,7 +12,6 @@ posiciones = "_ " * len(palabra_generada)
 #Definir las oportunidades que tiene el jugador
 vidas = 6
 letra1 = str(input("Por favor introduce una letra: "))[:1]
-if letra1 in palabra_generada:
     
 
 
