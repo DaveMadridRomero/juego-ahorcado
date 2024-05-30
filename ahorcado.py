@@ -16,6 +16,7 @@ vidas = 6
 while True:
     print(posiciones)
     letra = str(input("Por favor introduce una letra: "))[:1]
+    #En caso de introducir una mayúscula el programa lo convierte en minúscula
     letra.lower 
     if letra in palabra_generada:
         #definir una iteración con la cantidad de caracteres que tiene la palabra elegida por la máquina
