@@ -4,8 +4,35 @@ print("Desarrollador: Dave Madrid Romero")
 print("---------------------------------")
 print("Bienvenido al juego del ahorcado")
 print("---------------------------------")
+lista_de_dificultad = "nada"
+#Dar la opción de jugar dos modos, un jugador contra la máquina o dos jugadores con otra persona
+modo = int(input("Pulsa el número 1 para el modo de un jugador o pulsa 2 para el modo 2 jugadores"))
+while modo <1 or modo >2:
+    print("El número ingresado no es permitido, vuelve a elegir el número que corresponda al modo de juego ")
+    modo = int(input("Pulsa el número 1 para el modo de un jugador o pulsa 2 para el modo 2 jugadores"))
+
+#Defino mi propia función para la selección de dificultad del juego, la dificultad se define por la longitud de las palabras
+def dificultad (facil = 1, normal = 2, dificil = 3):
+    global lista_de_dificultad
+    global nivel
+    nivel = int(input("Elige la dificultado del juego : Fácil es 1, Normal es 2 y Dificil es 3: "))
+    while nivel <1 or nivel >3:
+        print("///////////////////////////////////////////////////////////////////////////////////")
+        print("El número es incorrecto, vuelve a elegir un número correspondiente a la dificultad")
+        print("///////////////////////////////////////////////////////////////////////////////////")
+        nivel = int(input("Elige la dificultado del juego : Fácil es 1, Normal es 2 y Difícil es 3: "))
+    if nivel == facil:
+        print("Dificultad fácil seleccionada")
+        lista_de_dificultad = ["amor","alto","azul","baño","vela","vaca"] 
+    elif nivel == normal:
+        print("Dificultad normal seleccionada")
+        lista_de_dificultad = ["atacar","animal","conejo","camino","dibujo","letras","nombre"]
+    elif nivel == dificil:
+        print("Dificultad difícil seleccionada")
+        lista_de_dificultad = ["extraordianario","resultado","palabras","jugadores","escritorio","programador","estructura","diagrama"]  
+dificultad()
 #Declarar mi lista de palabras para el juego
-lista_de_palabras = ["letra","casa","animal","jugador","auto","celular","dibujo","escuela"]
+lista_de_palabras = lista_de_dificultad
 #La computadora selecciona una palabra de mi lista declarada y muestra la longitud de la palabra
 palabra_generada = random.choice(lista_de_palabras)
 letras_introducidas = []
@@ -52,7 +79,7 @@ while vidas < 5:
             print("  O")
             print(" /|\\")
             print(" / \\")
-            print("No adivinaste la palabra. La palabra era", palabra_generada)
+            print("No adivinaste la palabra. La palabra correcta era", palabra_generada)
             break
     
 
