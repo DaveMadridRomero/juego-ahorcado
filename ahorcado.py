@@ -17,15 +17,17 @@ while modo <1 or modo >2:
 if modo == 1:
     #Defino mi propia función para la selección de dificultad del juego, la dificultad se define por la longitud de las palabras
     print("Has elegido el modo de un jugador")
+    #Creo argumentos con un valor para referirme a la dificultado
     def dificultad (facil = 1, normal = 2, dificil = 3): 
+        #Variables en global
         global lista_de_dificultad
         global nivel
-        nivel = int(input("Elige la dificultado del juego : Fácil es 1, Normal es 2 y Dificil es 3: "))
+        nivel = int(input("Elige la dificultado del juego : \n1)Fácil\n2)Normal\n3)Díficil: "))
         while nivel <1 or nivel >3:
            print("///////////////////////////////////////////////////////////////////////////////////")
            print("El número es incorrecto, vuelve a elegir un número correspondiente a la dificultad")
            print("///////////////////////////////////////////////////////////////////////////////////")
-           nivel = int(input("Elige la dificultado del juego : Fácil es 1, Normal es 2 y Difícil es 3: "))
+           nivel = int(input("Elige la dificultado del juego : \n1)Fácil\n2)Normal\n\n3)Díficil: "))
         if nivel == facil:
            print("Dificultad fácil seleccionada")
            lista_de_dificultad = ["amor","alto","azul","baño","vela","vaca"] 
@@ -44,9 +46,9 @@ if modo == 1:
     posiciones = "-" * len(palabra_generada)
     print(posiciones)
     #Dejar en 0 las vidas, con cada fallo el contador aumentara 1.
-    vidas = 0
+    intentos = 0
     #Crear un bucle cuando las vidas son menores a 5
-    while vidas < 5:
+    while intentos < 5:
         # El jugador introduce su letra
         letra = input("Por favor introduce una letra: ")[:1]
         #La convierte en minuscula
@@ -62,25 +64,25 @@ if modo == 1:
             print("¡Bien hecho! La palabra es:", posiciones)
             # Si ya no hay guiones estonces la palabra se completo y el jugador gana y se muestra la palabra
             if "-" not in posiciones:
-                print("Felicidades, adivinaste la palabra:", posiciones)
+                print("Felicidades, adivinaste la palabra:", posiciones.upper())
                 break
         else: 
             #En caso de fallar se le agregara 1 a su contador de vidas hasta llegar al máximo de 5
-            vidas += 1
-            print("Letra incorrecta, te quedan", 5-vidas, "vidas.")
+            intentos += 1
+            print("Letra incorrecta, te quedan", 5-intentos, "intentos.")
             letras_introducidas.append(letra)
-            if vidas == 1:
+            if intentos == 1:
                 print("  O")
-            elif vidas == 2:
+            elif intentos == 2:
                 print("  O")
                 print("  |")
-            elif vidas == 3:
+            elif intentos == 3:
                 print("  O")
                 print(" /|")
-            elif vidas == 4:
+            elif intentos == 4:
                 print("  O")
                 print(" /|\\")
-            elif vidas == 5:
+            elif intentos == 5:
                 print("  O")
                 print(" /|\\")
                 print(" / \\")
@@ -98,8 +100,8 @@ if modo == 2:
     posiciones = "-" * len(PalabraJ1)
     print(posiciones)
     # Se empieza con 0 vidas
-    vidas = 0
-    while vidas <5:
+    intentos = 0
+    while intentos <5:
         letra = input("Por favor ingresa una letra: ")[:1]
         letra = letra.lower()
         if letra in letras_introducidas:
@@ -114,21 +116,21 @@ if modo == 2:
                 break
         else: 
         #En caso de fallar se le agregara 1 a su contador de vidas hasta llegar al máximo de 5
-            vidas += 1
-            print("Letra incorrecta, te quedan", 5-vidas, "vidas.")
+            intentos += 1
+            print("Letra incorrecta, te quedan", 5-intentos, "intentos.")
             letras_introducidas.append(letra)
-            if vidas == 1:
+            if intentos == 1:
                 print("  O")
-            elif vidas == 2:
+            elif intentos == 2:
                 print("  O")
                 print("  |")
-            elif vidas == 3:
+            elif intentos == 3:
                 print("  O")
                 print(" /|")
-            elif vidas == 4:
+            elif intentos == 4:
                 print("  O")
                 print(" /|\\")
-            elif vidas == 5:
+            elif intentos == 5:
                 print("  O")
                 print(" /|\\")
                 print(" / \\")
@@ -141,9 +143,9 @@ if modo == 2:
     letras_introducidas = []
     posiciones = "-" * len(PalabraJ2)
     print(posiciones)
-    # Se empieza con 0 vidas
-    vidas = 0
-    while vidas <5:
+    # Se empieza con 0 intentos
+    intentos = 0
+    while intentos <5:
             letra = input("Por favor introduce una letra: ")[:1]
             letra = letra.lower()
             if letra in letras_introducidas:
@@ -158,21 +160,21 @@ if modo == 2:
                     break
             else: 
             #En caso de fallar se le agregara 1 a su contador de vidas hasta llegar al máximo de 5
-                vidas += 1
-                print("Letra incorrecta, te quedan", 5-vidas, "vidas.")
+                intentos += 1
+                print("Letra incorrecta, te quedan", 5-intentos, "intentos.")
                 letras_introducidas.append(letra)
-                if vidas == 1:
+                if intentos == 1:
                     print("  O")
-                elif vidas == 2:
+                elif intentos == 2:
                     print("  O")
                     print("  |")
-                elif vidas == 3:
+                elif intentos == 3:
                     print("  O")
                     print(" /|")
-                elif vidas == 4:
+                elif intentos == 4:
                     print("  O")
                     print(" /|\\")
-                elif vidas == 5:
+                elif intentos == 5:
                     print("  O")
                     print(" /|\\")
                     print(" / \\")
