@@ -84,9 +84,10 @@ def limpiar_ventana():
         widget.destroy()
   
 def limpiar_frame_fallos():
-    if frame_fallos is not None:
+    if frame_fallos and frame_fallos.winfo_exists():
         for widget in frame_fallos.winfo_children():
-            widget.destroy()
+            if widget.winfo_exists():
+                widget.destroy()
         frame_fallos.destroy()
 
 def menu_modo_juego():
@@ -124,11 +125,12 @@ def ventana_dos_jugadores():
 
 def ventana_ingresar_palabra():
     global nombre_1
+    global nombre_2
     global entry_nombre_j1
     global entry_palabra_j1
-    if entry_nombre_j1:
+    if nombre_1 != "":
         nombre_1 = entry_nombre_j1.get()
-    if entry_nombre_j2:
+    if nombre_2 != "":
         nombre_2 = entry_nombre_j2.get()
     limpiar_ventana()
     etiqueta_palabra = tk.Label(ventana_principal, text=f"Ingrese su palabra {nombre_1.upper()} ", font=("Helvetica", 24), fg='black')
@@ -165,8 +167,7 @@ def ventana_jugar_dos_jugadores():
     entry_letra.pack(pady=10)
     
     boton_probar = tk.Button(ventana_principal, text="Probar", command=verificar, font=("Helvetica", 15))
-    boton_probar.pack(pady=10)
-
+    boton_probar.pack(pady=10)    
 
     
     
@@ -285,6 +286,7 @@ def verificar():
             letra = letra.lower()
             if letra in letras_ingresadas:
                 messagebox.showinfo("Resultado","Esa letra ya fue ingresada, prueba con otra")
+                entry_letra.delete(0, tk.END)
 
             elif letra in palabra_generada:
                 for i in range(len(palabra_generada)):
@@ -297,6 +299,9 @@ def verificar():
                 #print(f"¡Bien hecho! [{nombre}] la palabra es: {posiciones}")
                 if "-" not in posiciones:
                     ventana_adivino_palabra()
+                else:
+                    entry_letra.delete(0, tk.END)
+
                     
             else:            
                 oportunidades += 1
@@ -306,8 +311,7 @@ def verificar():
       
     else:
         messagebox.showinfo("Resultado", "Debes ingresar SOLO 1 carácter diferente de un número")
-    
-    entry_letra.delete(0, tk.END)      
+        entry_letra.delete(0, tk.END)
 
         
 def ventana_de_fallos():
@@ -321,6 +325,8 @@ def ventana_de_fallos():
     if oportunidades < INTENTOS_DEFINIDOS:
         etiqueta_posiciones= tk.Label(frame_fallos, text=f"Te quedan, {INTENTOS_DEFINIDOS-oportunidades} oportunidades ", font=("Helvetica", 24), fg='black')
         etiqueta_posiciones.pack(pady=10)
+        entry_letra.delete(0, tk.END)
+
 
     if oportunidades == 1:
         imagen = tk.PhotoImage(file="Imagenes/1.png")
@@ -332,7 +338,7 @@ def ventana_de_fallos():
         imagen = tk.PhotoImage(file="Imagenes/4.png")
     elif oportunidades == 5:
         imagen = tk.PhotoImage(file="Imagenes/5.png")
-        #limpiar_ventana()
+        limpiar_ventana()
         frame_fallos = tk.Frame(ventana_principal, bg='lightblue')
         frame_fallos.pack(pady=10)
         etiqueta_perdio_juego = tk.Label(frame_fallos, text=f"No adivinaste la palabra {nombre.upper()}.La palabra correcta era {palabra_generada.upper()}", font=("Helvetica", 15), fg='black')
@@ -348,7 +354,6 @@ def ventana_de_fallos():
         
         oportunidades = 0
         letras_ingresadas = []
-        #entry_letra = None
         boton_regresar = tk.Button(ventana_principal, text="Regresar", command=menu_modo_juego, font=("Helvetica", 14), width=15)
         boton_regresar.pack(pady=5)
 
@@ -359,7 +364,7 @@ def ventana_de_fallos():
      
 
 def ventana_adivino_palabra():
-    #limpiar_ventana()
+    limpiar_ventana()
     global oportunidades
     global letras_ingresadas
 
