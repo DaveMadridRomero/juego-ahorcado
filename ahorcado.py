@@ -3,6 +3,9 @@
 import random
 import tkinter as tk
 from tkinter import messagebox
+from PIL import Image, ImageTk
+
+COLOR_FONDO = "white"
 
 UN_JUGADOR = 1
 DOS_JUGADORES = 2
@@ -72,10 +75,10 @@ def crear_ventana_principal():
     ventana_principal.mainloop()
     
 def fondo_ventana_principal():
-    imagen = tk.PhotoImage(file="Imagenes/fondo_principal.png")
+    """imagen = tk.PhotoImage(file="Imagenes/fondo_principal.png")
     label1 = tk.Label(ventana_principal, image = imagen)
     label1.image = imagen
-    label1.place(x = 0,y = 0)
+    label1.place(x = 0,y = 0)"""
 
 def limpiar_ventana():
     for widget in ventana_principal.winfo_children():
@@ -89,36 +92,52 @@ def limpiar_frame_fallos():
                 widget.destroy()
         frame_fallos.destroy()
 
+def imagen_boton_menu_juego():
+    imagen_original = Image.open("Imagenes/boton_modo_juego.png")
+    nueva_imagen = imagen_original.resize((300, 60))
+    imagen = ImageTk.PhotoImage(nueva_imagen)
+    return imagen
+
+def imagen_boton_jugar_juego():
+    imagen_original = Image.open("Imagenes/boton_play.png")
+    nueva_imagen = imagen_original.resize((150, 60))
+    imagen = ImageTk.PhotoImage(nueva_imagen)
+    return imagen
+
+
 def menu_modo_juego():
     limpiar_ventana()
 
-    etiqueta = tk.Label(ventana_principal, text="Modo de juego", font=("Calibri", 35), fg='black', bg="white")
+    etiqueta = tk.Label(ventana_principal, text="Modo de juego", font=("Calibri", 35), fg='black', bg=COLOR_FONDO)
     etiqueta.pack(pady= 50)
-
-
+    imagen = imagen_boton_menu_juego()
     # Botón 1
     boton_1 = tk.Button(ventana_principal, text="Un jugador", command=menu_seleccion_dificultad,
-                fg="#434141",
-                bg="#82FF59",
+                fg="black",
+                bg=COLOR_FONDO,
                 font=("Calibri", 20),
-                relief = "groove",
-                borderwidth= 3,
-                cursor = "hand2",
-                width=25)
+                image = imagen,
+                cursor="hand2",
+                compound="center",
+                relief="flat",
+                width=300, height=60)
 
 
     boton_1.pack(pady=15)
+    boton_1.image = imagen
 
     # Botón 2
     boton_2 = tk.Button(ventana_principal, text="Dos jugadores", command=ventana_dos_jugadores,
-                fg="#434141",
-                bg="#82FF59",
-                font=("Calibri", 20),
-                relief = "groove",
-                borderwidth= 3,
-                cursor="hand2",
-                width=25)
+                        fg="black",
+                        bg=COLOR_FONDO,
+                        font=("Calibri", 20),
+                        image=imagen,
+                        cursor="hand2",
+                        compound="center",
+                        relief="flat",
+                        width=300, height=60)
     boton_2.pack(pady=15)
+    boton_2.image = imagen
     
     
 def ventana_dos_jugadores():
@@ -129,7 +148,7 @@ def ventana_dos_jugadores():
     global turno_de_adivinar
     modo_juego = DOS_JUGADORES
     turno_de_adivinar = TURNO_JUGADOR_2
-    etiqueta_j1 = tk.Label(ventana_principal, text="Ingrese su nombre jugador 1", font=("Helvetica", 24), fg='black', bg="white")
+    etiqueta_j1 = tk.Label(ventana_principal, text="Ingrese su nombre jugador 1", font=("Helvetica", 24), fg='black', bg=COLOR_FONDO)
     etiqueta_j1.pack(pady=20)
     entry_nombre_j1= tk.Entry(ventana_principal, width=35,
               font=("Calibri", 25),
@@ -137,21 +156,25 @@ def ventana_dos_jugadores():
               relief="ridge")
     entry_nombre_j1.pack(pady=15)
     
-    etiqueta_j2= tk.Label(ventana_principal, text="Ingrese su nombre jugador 2", font=("Helvetica", 24), fg='black', bg="white")
+    etiqueta_j2= tk.Label(ventana_principal, text="Ingrese su nombre jugador 2", font=("Helvetica", 24), fg='black', bg=COLOR_FONDO)
     etiqueta_j2.pack(pady=10)
     entry_nombre_j2= tk.Entry(ventana_principal, width=35,
               font=("Calibri", 25),
               bd=5,
               relief="ridge")
     entry_nombre_j2.pack(pady=10)
+
+    imagen = imagen_boton_jugar_juego()
     boton_jugar = tk.Button(ventana_principal, text="Jugar", command=ventana_ingresar_palabra, fg="#434141",
-                bg="#82FF59",
-                font=("Calibri", 20),
-                relief = "groove",
-                borderwidth= 3,
-                cursor = "hand2",
-                width=25)
+                            bg=COLOR_FONDO,
+                            font=("Calibri", 20),
+                            image=imagen,
+                            cursor="hand2",
+                            compound="center",
+                            relief="flat",
+                            width=150, height=60)
     boton_jugar.pack(pady=10)
+    boton_jugar.imagen = imagen
 
 def ventana_ingresar_palabra():
     global nombre_1
@@ -167,7 +190,7 @@ def ventana_ingresar_palabra():
     print(nombre_1)
     print(nombre_2)
     if turno_de_adivinar == TURNO_JUGADOR_2:
-        etiqueta_palabra = tk.Label(ventana_principal, text=f"Ingrese su palabra {nombre_1.upper()} ", font=("Helvetica", 24), fg='black', bg="white")
+        etiqueta_palabra = tk.Label(ventana_principal, text=f"Ingrese su palabra {nombre_1.upper()} ", font=("Helvetica", 24), fg='black', bg=COLOR_FONDO)
         etiqueta_palabra.pack(pady=10)
         entry_palabra = tk.Entry(ventana_principal, width=35,
               font=("Calibri", 25),
@@ -185,7 +208,7 @@ def ventana_ingresar_palabra():
                 width=25)
         boton_jugar_1.pack(pady=10)
     if turno_de_adivinar == TURNO_JUGADOR_1:
-        etiqueta_palabra = tk.Label(ventana_principal, text=f"Ingrese su palabra {nombre_2.upper()} ", font=("Helvetica", 24), fg='black', bg="white")
+        etiqueta_palabra = tk.Label(ventana_principal, text=f"Ingrese su palabra {nombre_2.upper()} ", font=("Helvetica", 24), fg='black', bg=COLOR_FONDO)
         etiqueta_palabra.pack(pady=10)
         entry_palabra = tk.Entry(ventana_principal, width=35,
               font=("Calibri", 25),
@@ -203,7 +226,7 @@ def ventana_ingresar_palabra():
                 width=25)
         boton_jugar_2.pack(pady=10)
     if turno_de_adivinar == FINALIZAR:
-        etiqueta_palabra = tk.Label(ventana_principal, text=f"Juego terminado",font=("Helvetica", 24), fg='black', bg="white")
+        etiqueta_palabra = tk.Label(ventana_principal, text=f"Juego terminado",font=("Helvetica", 24), fg='black', bg=COLOR_FONDO)
         etiqueta_palabra.pack(pady=10)
         boton_regresar = tk.Button(ventana_principal, text="Regresar", command=menu_modo_juego, fg="#434141",
                 bg="#82FF59",
@@ -241,10 +264,10 @@ def ventana_jugar_dos_jugadores():
         nombre = nombre_1
 
 
-    etiqueta_titulo_juego = tk.Label(ventana_principal, text=f"El juego ya empezó, adivina la palabra {nombre}", font=("Helvetica", 24), fg='black', bg="white")
+    etiqueta_titulo_juego = tk.Label(ventana_principal, text=f"El juego ya empezó, adivina la palabra {nombre}", font=("Helvetica", 24), fg='black', bg=COLOR_FONDO)
     etiqueta_titulo_juego.pack(pady=10)
     posiciones = "-" * len(palabra_generada)
-    etiqueta_posiciones= tk.Label(ventana_principal, text=posiciones, font=("Helvetica", 35), fg='black', bg="white")
+    etiqueta_posiciones= tk.Label(ventana_principal, text=posiciones, font=("Helvetica", 35), fg='black', bg=COLOR_FONDO)
     etiqueta_posiciones.pack(pady=10)
     
     entry_letra = tk.Entry(ventana_principal, width=25,
@@ -286,46 +309,52 @@ def menu_seleccion_dificultad():
     limpiar_ventana()
     global modo_juego
     modo_juego = UN_JUGADOR
-    etiqueta = tk.Label(ventana_principal, text="Modos de dificultad", font=("Helvetica", 24), fg='black', bg="white")
+    etiqueta = tk.Label(ventana_principal, text="Modos de dificultad", font=("Helvetica", 24), fg='black', bg=COLOR_FONDO)
     etiqueta.pack(pady=10)
 
+    imagen = imagen_boton_menu_juego()
     # Botón 1
-    boton_1 = tk.Button(ventana_principal, text="Fácil", command=jugar_facil, fg="#434141",
-                bg="#82FF59",
+    boton_1 = tk.Button(ventana_principal, text="Fácil", command=jugar_facil, fg="black",
+                bg=COLOR_FONDO,
                 font=("Calibri", 20),
-                relief = "groove",
-                borderwidth= 3,
-                cursor = "hand2",
-                width=25)
+                image = imagen,
+                cursor="hand2",
+                compound="center",
+                relief="flat",
+                width=300, height=60)
     boton_1.pack(pady=15)
+    boton_1.image = imagen
 
     # Botón 2
-    boton_2 = tk.Button(ventana_principal, text="Normal", command=jugar_normal, fg="#434141",
-                bg="#82FF59",
+    boton_2 = tk.Button(ventana_principal, text="Normal", command=jugar_normal, bg=COLOR_FONDO,
                 font=("Calibri", 20),
-                relief = "groove",
-                borderwidth= 3,
-                cursor = "hand2",
-                width=25)
+                image = imagen,
+                cursor="hand2",
+                compound="center",
+                relief="flat",
+                width=300, height=60)
     boton_2.pack(pady=15)
+    boton_2.image = imagen
     
-    boton_3 = tk.Button(ventana_principal, text="Difícil", command=jugar_dificil, fg="#434141",
-                bg="#82FF59",
+    boton_3 = tk.Button(ventana_principal, text="Difícil", command=jugar_dificil, bg=COLOR_FONDO,
                 font=("Calibri", 20),
-                relief = "groove",
-                borderwidth= 3,
-                cursor = "hand2",
-                width=25)
+                image = imagen,
+                cursor="hand2",
+                compound="center",
+                relief="flat",
+                width=300, height=60)
     boton_3.pack(pady=15)
+    boton_3.image = imagen
     
-    boton_regresar = tk.Button(ventana_principal, text="Regresar", command=menu_modo_juego, fg="#434141",
-                bg="#82FF59",
+    boton_regresar = tk.Button(ventana_principal, text="Regresar", command=menu_modo_juego, bg=COLOR_FONDO,
                 font=("Calibri", 20),
-                relief = "groove",
-                borderwidth= 3,
-                cursor = "hand2",
-                width=25)
+                image = imagen,
+                cursor="hand2",
+                compound="center",
+                relief="flat",
+                width=300, height=60)
     boton_regresar.pack(pady=15)
+    boton_regresar.image = imagen
       
     
 def jugar_facil():
@@ -348,10 +377,10 @@ def jugar_dificil():
     
 def ventana_nombre_jugador(dificultad):
     limpiar_ventana()
-    etiqueta = tk.Label(ventana_principal, text=f"Seleccionaste la dificultad {dificultad}", font=("Helvetica", 24), fg='black', bg="white")
+    etiqueta = tk.Label(ventana_principal, text=f"Seleccionaste la dificultad {dificultad}", font=("Helvetica", 24), fg='black', bg=COLOR_FONDO)
     etiqueta.pack(pady=10)
     
-    etiqueta = tk.Label(ventana_principal, text="Ingresa tu nombre: ", font=("Helvetica", 24), fg='black', bg="white")
+    etiqueta = tk.Label(ventana_principal, text="Ingresa tu nombre: ", font=("Helvetica", 24), fg='black', bg=COLOR_FONDO)
     etiqueta.pack(pady=10)
     
     global entry_nombre
@@ -377,7 +406,7 @@ def ventana_jugar_modo_un_jugador():
     nombre = entry_nombre.get()
     limpiar_ventana()
 
-    etiqueta_titulo_juego = tk.Label(ventana_principal, text=f"El juego ya empezó {nombre.upper()}", font=("Helvetica", 24), fg='black', bg="white")
+    etiqueta_titulo_juego = tk.Label(ventana_principal, text=f"El juego ya empezó {nombre.upper()}", font=("Helvetica", 24), fg='black', bg=COLOR_FONDO)
     etiqueta_titulo_juego.pack(pady=10)
     lista_palabras = []
     if dificultad == FACIL:
@@ -391,7 +420,7 @@ def ventana_jugar_modo_un_jugador():
     global posiciones
     posiciones = "-" * len(palabra_generada)
     global etiqueta_posiciones
-    etiqueta_posiciones= tk.Label(ventana_principal, text=posiciones, font=("Calibri", 60), fg='black', bg="white")
+    etiqueta_posiciones= tk.Label(ventana_principal, text=posiciones, font=("Calibri", 60), fg='black', bg=COLOR_FONDO)
     etiqueta_posiciones.pack(pady=10)
     
     global entry_letra
@@ -459,11 +488,11 @@ def ventana_de_fallos():
     global letras_ingresadas
     limpiar_frame_fallos()
     global frame_fallos
-    frame_fallos = tk.Frame(ventana_principal, bg='lightblue')
+    frame_fallos = tk.Frame(ventana_principal, bg=COLOR_FONDO)
     frame_fallos.pack(pady=10)
     
     if oportunidades < INTENTOS_DEFINIDOS:
-        etiqueta_posiciones= tk.Label(frame_fallos, text=f"Te quedan, {INTENTOS_DEFINIDOS-oportunidades} oportunidades ", font=("Helvetica", 24), fg='black', bg="white")
+        etiqueta_posiciones= tk.Label(frame_fallos, text=f"Te quedan, {INTENTOS_DEFINIDOS-oportunidades} oportunidades ", font=("Helvetica", 24), fg='black', bg=COLOR_FONDO)
         etiqueta_posiciones.pack(pady=10)
         entry_letra.delete(0, tk.END)
 
@@ -479,9 +508,9 @@ def ventana_de_fallos():
     elif oportunidades == 5:
         imagen = tk.PhotoImage(file="Imagenes/5.png")
         limpiar_ventana()
-        frame_fallos = tk.Frame(ventana_principal, bg='lightblue')
+        frame_fallos = tk.Frame(ventana_principal, bg=COLOR_FONDO)
         frame_fallos.pack(pady=10)
-        etiqueta_perdio_juego = tk.Label(frame_fallos, text=f"No adivinaste la palabra {nombre.upper()}.La palabra correcta era {palabra_generada.upper()}", font=("Helvetica", 15), fg='black', bg="white")
+        etiqueta_perdio_juego = tk.Label(frame_fallos, text=f"No adivinaste la palabra {nombre.upper()}.La palabra correcta era {palabra_generada.upper()}", font=("Helvetica", 15), fg='black', bg=COLOR_FONDO)
         etiqueta_perdio_juego.pack(pady=10)
         if modo_juego == DOS_JUGADORES:
             if turno_de_adivinar == TURNO_JUGADOR_2:
@@ -533,7 +562,7 @@ def ventana_adivino_palabra():
     global letras_ingresadas
     global turno_de_adivinar
 
-    etiqueta_ganador = tk.Label(ventana_principal, text=f"Felicidades {nombre.upper()}. Acertaste la palabra es {palabra_generada.upper()}", font=("Helvetica", 24), fg='black', bg="white")
+    etiqueta_ganador = tk.Label(ventana_principal, text=f"Felicidades {nombre.upper()}. Acertaste la palabra es {palabra_generada.upper()}", font=("Helvetica", 24), fg='black', bg=COLOR_FONDO)
     etiqueta_ganador.pack(pady=10)
     
     if modo_juego == UN_JUGADOR:
