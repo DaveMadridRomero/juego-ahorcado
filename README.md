@@ -28,5 +28,5 @@ El juego también cuenta con un modo de dos jugadores para jugar con un amigo o 
 1. Debes de tener las siguientes librerías para poder ejecutarlo `tkinter` en este caso ya viene por defecto en python, `PIL` o `Pillow` si no lo tienes, puedes instalarlo usando los siguientes comando:
 _pip install pillow_
 2. Clona este repositorio o descarga todos los archivos del programa.
-3. Asegúrate de que la carpeta "imagen" contenga todas las imágenes: deben ser 5 figuras del ahorcado y 2 figuras de botones, en el mismo directorio que el código principal.
+3. Asegúrate de que la carpeta "imagen" contenga todas las imágenes: deben ser 5 figuras del ahorcado y 2 figuras de botones, la carpeta imagen debe estar en el mismo directorio que el código principal, de igual manera el archivo `banco_palabras.py`.
 4. Ejecuta el archivo `ahorcado.py`.
